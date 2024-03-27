@@ -18,10 +18,16 @@ $this->title = $name;
     </div>
 
     <p>
-        The above error occurred while the Web server was processing your request.
+        <?php
+        if ($exception->getCode() == 403) {
+            echo 'U heeft geen toestemming';
+        } else {
+            echo 'De bovenstaande fout is opgetreden terwijl de webserver uw verzoek verwerkte.';
+        }
+        ?>
     </p>
     <p>
-        Please contact us if you think this is a server error. Thank you.
+        Neem alstublieft contact met ons op als u denkt dat dit een serverfout is. Dank u.
     </p>
 
 </div>

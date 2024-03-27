@@ -21,6 +21,8 @@ $this->registerMetaTag(['name' => 'keywords', 'content' => $this->params['meta_k
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('@web/favicon.ico')]);
 ?>
 <?php $this->beginPage() ?>
+
+
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 <head>
@@ -41,7 +43,16 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'options' => ['class' => 'navbar-nav'],
         'items' => [
 
+            ['label' => 'AdminTEST',
+                'items' => [
+                    ['label' => 'Users', 'url' => ['/tbl-user', '']],
+                    ['label' => 'Create User', 'url' => ['/tbl-user/create']],
 
+                ],
+            ],
+
+
+            ['label' => 'Home', 'url' => ['/site/index']],
             !Yii::$app->user->isGuest && Yii::$app->user->identity->role === 'Admin'
                 ? ['label' => 'Admin',
                 'items' => [
@@ -50,18 +61,16 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 ],
             ]
                 : '',
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest
                 ? ['label' => 'Login', 'url' => ['/site/login']]
                 : '<li class="nav-item">'
-                    . Html::beginForm(['/site/logout'])
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
-                        ['class' => 'nav-link btn btn-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>'
+                . Html::beginForm(['/site/logout'])
+                . Html::submitButton(
+                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'nav-link btn btn-link logout logout-button']
+                )
+                . Html::endForm()
+                . '</li>'
         ]
     ]);
     NavBar::end();

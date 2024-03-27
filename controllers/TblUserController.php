@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\tblUser;
 use app\models\TblUserSearch;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -19,17 +20,22 @@ class TblUserController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'], //only be applied to
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@'], // '@' symbol means this rule is only for authenticated users
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->identity->role === 'Admin';
+                        }
                     ],
                 ],
-            ]
-        );
+            ],
+        ];
     }
 
     /**

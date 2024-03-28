@@ -21,8 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Student', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-
-
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -31,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-//            'student_id',
             'voornaam',
             'achternaam',
             'klas',
@@ -47,19 +44,12 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <h2>Statistieken</h2>
-    <table style="border: 1px solid #dddddd; padding: 5px">
-        <tr style="border: 1px solid #dddddd; padding: 5px">
-            <td style="border: 1px solid #dddddd; padding: 5px">Gemiddeld aantal minuten te laat:</td>
-            <td style="border: 1px solid #dddddd; padding: 5px"><?= round(\app\models\Student::getAverageLateTime()) ?> minuten</td>
-        </tr >
-        <tr style="border: 1px solid #dddddd; padding: 5px">
-            <td style="border: 1px solid #dddddd; padding: 5px">Hoogste aantal minuten te laat:</td>
-            <td style="border: 1px solid #dddddd; padding: 5px"><?= round(\app\models\Student::getHighestLateTime()) ?> minuten</td>
-        </tr>
-        <tr style="border: 1px solid #dddddd; padding: 5px">
-            <td style="border: 1px solid #dddddd; padding: 5px">Totaal aantal minuten te laat:</td>
-            <td style="border: 1px solid #dddddd; padding: 5px"><?= round(\app\models\Student::getTotalLateTime()) ?> minuten</td>
-        </tr>
-    </table>
+
+    <h2>Statistics</h2>
+    <p>Average Late Time: <?= \app\models\Student::getAverageLateTime() ?> minutes</p>
+    <p>Highest Late Time: <?= \app\models\Student::getHighestLateTime() ?> minutes</p>
+    <p>Total Late Time: <?= \app\models\Student::getTotalLateTime() ?> minutes</p>
+
+
+
 </div>

@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'voornaam',
             'achternaam',
             'klas',
+            'gemeld_door',
             'telaat_tijd',
             'telaat_reden',
         ],

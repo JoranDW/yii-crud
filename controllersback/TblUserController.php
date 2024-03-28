@@ -2,18 +2,18 @@
 
 namespace app\controllers;
 
-use app\models\Student;
-use app\models\StudentSearch;
+use app\models\tblUser;
+use app\models\TblUserSearch;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use Yii;
 
 /**
- * StudentController implements the CRUD actions for Student model.
+ * TblUserController implements the CRUD actions for tblUser model.
  */
-class StudentController extends Controller
+class TblUserController extends Controller
 {
     /**
      * @inheritDoc
@@ -30,7 +30,7 @@ class StudentController extends Controller
                         'allow' => true,
                         'roles' => ['@'], // '@' symbol means this rule is only for authenticated users
                         'matchCallback' => function ($rule, $action) {
-                            return Yii::$app->user->identity->role === 'Admin' || Yii::$app->user->identity->role === 'Docent';
+                            return Yii::$app->user->identity->role === 'Admin';
                         }
                     ],
                 ],
@@ -39,13 +39,13 @@ class StudentController extends Controller
     }
 
     /**
-     * Lists all Student models.
+     * Lists all tblUser models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new StudentSearch();
+        $searchModel = new TblUserSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -55,33 +55,33 @@ class StudentController extends Controller
     }
 
     /**
-     * Displays a single Student model.
-     * @param int $student_id Student ID
+     * Displays a single tblUser model.
+     * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($student_id)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($student_id),
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Student model.
+     * Creates a new tblUser model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Student();
+        $model = new tblUser();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'student_id' => $model->student_id]);
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->password=sha1($model->password);
+            $model->authKey=md5(openssl_random_pseudo_bytes(40));
+            if ($model->save() ) {
+                return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
-            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
@@ -90,18 +90,18 @@ class StudentController extends Controller
     }
 
     /**
-     * Updates an existing Student model.
+     * Updates an existing tblUser model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $student_id Student ID
+     * @param int $id ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($student_id)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($student_id);
+        $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'student_id' => $model->student_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -110,29 +110,29 @@ class StudentController extends Controller
     }
 
     /**
-     * Deletes an existing Student model.
+     * Deletes an existing tblUser model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $student_id Student ID
+     * @param int $id ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($student_id)
+    public function actionDelete($id)
     {
-        $this->findModel($student_id)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Student model based on its primary key value.
+     * Finds the tblUser model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $student_id Student ID
-     * @return Student the loaded model
+     * @param int $id ID
+     * @return tblUser the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($student_id)
+    protected function findModel($id)
     {
-        if (($model = Student::findOne(['student_id' => $student_id])) !== null) {
+        if (($model = tblUser::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

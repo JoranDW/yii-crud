@@ -47,6 +47,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 'items' => [
                     ['label' => 'Users', 'url' => ['/tbl-user', '']],
                     ['label' => 'Create User', 'url' => ['/tbl-user/create']],
+                    ['label' => 'te laat', 'url' => ['/student']],
+                    ['label' => 'te laat toevoegen', 'url' => ['/student/create']],
 
                 ],
             ],
@@ -58,6 +60,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 'items' => [
                     ['label' => 'Users', 'url' => ['/tbl-user', '']],
                     ['label' => 'Create User', 'url' => ['/tbl-user/create']],
+                ],
+            ]
+                : '',
+            !Yii::$app->user->isGuest && Yii::$app->user->identity->role === 'Docent'
+                ? ['label' => 'Docent',
+                'items' => [
+                    ['label' => 'Studenten te laat', 'url' => ['/student', '']],
+                    ['label' => 'te laat melden', 'url' => ['/student/create']],
                 ],
             ]
                 : '',

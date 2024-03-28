@@ -15,9 +15,9 @@ $this->title = 'Joran Crud Challange';
             }
             ?>!</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">Welkom op de (schoolnaam) docenten omgeving!</p>
 
-        <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p>
+        <p><a class="btn btn-lg btn-success" href="">Maak kennis met de omgeving</a></p>
     </div>
 
     <div class="body-content">

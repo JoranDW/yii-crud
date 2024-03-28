@@ -18,7 +18,7 @@ class StudentSearch extends Student
     {
         return [
             [['student_id', 'telaat_tijd'], 'integer'],
-            [['voornaam', 'achternaam', 'klas', 'telaat_reden'], 'safe'],
+            [['voornaam', 'achternaam', 'klas', 'gemeld_door', 'telaat_reden'], 'safe'],
         ];
     }
 
@@ -65,6 +65,7 @@ class StudentSearch extends Student
         $query->andFilterWhere(['like', 'voornaam', $this->voornaam])
             ->andFilterWhere(['like', 'achternaam', $this->achternaam])
             ->andFilterWhere(['like', 'klas', $this->klas])
+            ->andFilterWhere(['like', 'gemeld_door', $this->gemeld_door])
             ->andFilterWhere(['like', 'telaat_reden', $this->telaat_reden]);
 
         return $dataProvider;

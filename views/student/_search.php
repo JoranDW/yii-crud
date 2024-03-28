@@ -23,7 +23,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'klas') ?>
 
-    <?= $form->field($model, 'telaat_tijd') ?>
+    <?= $form->field($model, 'gemeld_door') ?>
+
+    <?php // echo $form->field($model, 'telaat_tijd') ?>
 
     <?php // echo $form->field($model, 'telaat_reden') ?>
 
